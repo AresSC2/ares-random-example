@@ -63,6 +63,11 @@ MyBotRace: Random
 if you prefer not to use the ares build runner system.
 - Create your own masterpiece in `bot/main.py`
 
+## Updating `ares-sc2`
+With a console or terminal run the following in the root of the bots' directory:
+
+`python scripts/update_ares.py`
+
 ## Uploading to [AiArena](https://www.sc2ai.com)
 
 <b>TLDR:</b> On each push to `main` there is a Github Actions workflow that builds a ladder ready zip. Take a 
