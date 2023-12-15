@@ -12,27 +12,27 @@ BuildChoices:
     test_123:
         BotName: Test
         Cycle:
-            - ThreeGateStalker
+            - OneBaseMarines
 
     Protoss:
         BotName: ProtossRace
         Cycle:
-            - ThreeGateStalker
+            - OneBaseMarines
 
     Random:
         BotName: RandomRace
         Cycle:
-            - ThreeGateStalker
+            - OneBaseMarines
 
     Terran:
         BotName: TerranRace
         Cycle:
-            - ThreeGateStalker
+            - OneBaseMarines
 
     Zerg:
         BotName: ZergRace
         Cycle:
-            - ThreeGateStalker
+            - OneBaseMarines
 
     # Can also use specific opponent ids (overrides race options above)
     a_bot_opponent_id_from_aiarena:
@@ -41,17 +41,18 @@ BuildChoices:
             - DummyOpening
 
 Builds:
-    ThreeGateStalker:
+    OneBaseMarines:
         # Build constant workers till x supply
-        ConstantWorkerProductionTill: 22
+        ConstantWorkerProductionTill: 18
+        PersistentWorker: False
         OpeningBuildOrder:
-            - 13 pylon
-            - 15 gateway
-            - 15 gas
-            - 18 cyberneticscore
-            - 18 gas
-            - 19 pylon
-            - 20 gateway
-            - 21 gateway
-
+            - 13 supply
+            - 15 barracks
+            - 16 barracks
+            - 17 barracks
+            - 18 orbital
+            - 19 supply
+            - 19 barracks
+            - 20 barracks
+            - 21 barracks
 

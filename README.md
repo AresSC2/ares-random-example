@@ -1,11 +1,67 @@
-# ares-sc2-starter-bot
+# Ares-sc2 Random Example Bot
 
 [ares-sc2 repo](https://github.com/AresSC2/ares-sc2) <br>
 [ares-sc2 docs](https://aressc2.github.io/ares-sc2/index.html)
 
-## Getting started
-Please refer to [this tutorial article](https://aressc2.github.io/ares-sc2/tutorials/installation.html)
-which is based on this starter bot repo.
+## About
+This bot is designed to showcase the fundamental processes within ares-sc2. It has been 
+intentionally structured within a single file for easy comprehension (check `bot/main.py`). Where
+possible the logic is race agnostic resulting in a competitive random bot in just a few 
+hundred lines of code!
+
+Feel free to 
+clone this repository, or utilize the [blank starter bot](https://github.com/AresSC2/ares-sc2-starter-bot) 
+as a foundation to build upon.
+
+Take note of the terran_builds.yml, protoss_builds.yml, and zerg_builds.yml files, where 
+the initial build orders are defined. The presence and correct formatting of these 
+files activate the internal build runner system in ares-sc2. If creating your own bot
+these files are optional.
+
+## Installing
+
+<b>Note, it might be easier to start from a blank template. Use the
+[blank starter bot](https://github.com/AresSC2/ares-sc2-starter-bot)
+and follow the instructions there if desired.</b>
+
+Ensure you have the following setup on your local system:
+- [Python 3.11](https://www.python.org/downloads/release/python-3110/) 
+- [Poetry](https://python-poetry.org/) `pip install poetry`
+- [Git](https://git-scm.com/)
+- [Starcraft 2](https://starcraft2.com/en-gb/)
+- [Maps](https://sc2ai.net/wiki/maps/) Ensure maps are moved to the correct folder as suggested in this wiki.
+
+Clone the repository locally to your system, ensuring you include the `--recursive` flag:
+
+`git clone --recursive https://github.com/AresSC2/ares-random-example`
+
+ - Open a terminal or console window.
+
+ - Navigate to the root of your bot's directory:
+
+`cd ares-random-example`
+
+ - Install dependencies, compile Cython, and create a new isolated virtual environment:
+
+`poetry install`
+
+## Run
+
+If you have a non-standard starcraft installation or are using Linux, please adjust `MAPS_PATH` in `run.py`.
+
+`poetry run python run.py`
+
+## Start building your own bot
+
+- In `config.yml` set your bots name and race
+```yml
+MyBotName: AresRandomExample
+MyBotRace: Random
+```
+- Start making your own opening builds in the appropriate `yml` file: 
+`terran_builds.yml`, `protoss_builds.yml` or `zerg_builds.yml`. Or remove the files
+if you prefer not to use the ares build runner system.
+- Create your own masterpiece in `bot/main.py`
 
 ## Uploading to [AiArena](https://www.sc2ai.com)
 

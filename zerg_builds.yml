@@ -12,27 +12,27 @@ BuildChoices:
     test_123:
         BotName: Test
         Cycle:
-            - ThreeGateStalker
+            - BurrowRoachRush
 
     Protoss:
         BotName: ProtossRace
         Cycle:
-            - ThreeGateStalker
+            - BurrowRoachRush
 
     Random:
         BotName: RandomRace
         Cycle:
-            - ThreeGateStalker
+            - BurrowRoachRush
 
     Terran:
         BotName: TerranRace
         Cycle:
-            - ThreeGateStalker
+            - BurrowRoachRush
 
     Zerg:
         BotName: ZergRace
         Cycle:
-            - ThreeGateStalker
+            - BurrowRoachRush
 
     # Can also use specific opponent ids (overrides race options above)
     a_bot_opponent_id_from_aiarena:
@@ -41,17 +41,22 @@ BuildChoices:
             - DummyOpening
 
 Builds:
-    ThreeGateStalker:
+    BurrowRoachRush:
         # Build constant workers till x supply
-        ConstantWorkerProductionTill: 22
+        # Turning this off here for a bit more precision in build
+        ConstantWorkerProductionTill: 0
         OpeningBuildOrder:
-            - 13 pylon
-            - 15 gateway
-            - 15 gas
-            - 18 cyberneticscore
-            - 18 gas
-            - 19 pylon
-            - 20 gateway
-            - 21 gateway
-
+            - 12 drone
+            - 13 drone
+            - 14 spawningpool
+            - 13 gas
+            - 12 drone
+            - 13 drone
+            - 14 overlord
+            - 14 drone
+            - 15 roachwarren
+            - 14 queen
+            - 14 drone
+            - 15 drone
+            - 15 overlord
 

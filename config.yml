@@ -2,8 +2,10 @@
 # Use this to override those values
 # Can add own unique config options here if desired
 
-# Custom values not used by ares
-MyBotName: MyBotName
+# Custom values not used by ares-sc2
+# Put your own things personal to your bot here
+
+MyBotName: AresRandomExample
 MyBotRace: Random
 ########################
 
