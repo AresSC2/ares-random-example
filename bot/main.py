@@ -99,12 +99,6 @@ class MyBot(AresBot):
         else:
             # cycle through expansion locations
             if self.is_visible(self.current_base_target):
-                if not self.expansions_generator:
-                    base_locations: list[Point2] = [
-                        i for i in self.expansion_locations_list
-                    ]
-                    self.expansions_generator = cycle(base_locations)
-
                 self.current_base_target = next(self.expansions_generator)
 
             return self.current_base_target
@@ -117,6 +111,7 @@ class MyBot(AresBot):
         await super(MyBot, self).on_start()
 
         self.current_base_target = self.enemy_start_locations[0]
+        self.expansions_generator = cycle([pos for pos in self.expansion_locations_list])
         self._begin_attack_at_supply = 3.0 if self.race == Race.Terran else 6.0
 
     async def on_step(self, iteration: int) -> None:
