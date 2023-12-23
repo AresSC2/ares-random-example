@@ -4,7 +4,7 @@
 [ares-sc2 docs](https://aressc2.github.io/ares-sc2/index.html)
 
 ## About
-This bot is designed to showcase the fundamental processes within ares-sc2. It has been 
+This bot is designed to showcase some useful features within ares-sc2. It has been 
 intentionally structured within a single file for easy comprehension (check `bot/main.py`). Where
 possible the logic is race agnostic resulting in a competitive random bot in just a few 
 hundred lines of code!
@@ -13,9 +13,9 @@ Feel free to
 clone this repository, or utilize the [blank starter bot](https://github.com/AresSC2/ares-sc2-starter-bot) 
 as a foundation to build upon.
 
-Take note of the terran_builds.yml, protoss_builds.yml, and zerg_builds.yml files, where 
+Take note of the `terran_builds.yml`, `protoss_builds.yml`, and `zerg_builds.yml` files, where 
 the initial build orders are defined. The presence and correct formatting of these 
-files activate the internal build runner system in ares-sc2. If creating your own bot
+files activate the internal build runner system in `ares-sc2`. If creating your own bot
 these files are optional.
 
 ## Installing
