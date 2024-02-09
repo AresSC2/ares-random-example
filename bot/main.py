@@ -26,8 +26,7 @@ from ares.behaviors.combat.individual import (
 )
 from ares.behaviors.macro import AutoSupply, Mining, SpawnController
 from ares.consts import ALL_STRUCTURES, WORKER_TYPES, UnitRole, UnitTreeQueryType
-from ares.cython_extensions.combat_utils import cy_pick_enemy_target
-from ares.cython_extensions.units_utils import cy_closest_to, cy_in_attack_range
+from cython_extensions import cy_closest_to, cy_in_attack_range, cy_pick_enemy_target
 from sc2.data import Race
 from sc2.ids.ability_id import AbilityId
 from sc2.ids.unit_typeid import UnitTypeId as UnitID
@@ -111,7 +110,9 @@ class MyBot(AresBot):
         await super(MyBot, self).on_start()
 
         self.current_base_target = self.enemy_start_locations[0]
-        self.expansions_generator = cycle([pos for pos in self.expansion_locations_list])
+        self.expansions_generator = cycle(
+            [pos for pos in self.expansion_locations_list]
+        )
         self._begin_attack_at_supply = 3.0 if self.race == Race.Terran else 6.0
 
     async def on_step(self, iteration: int) -> None:
