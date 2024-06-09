@@ -54,6 +54,7 @@ if __name__ == "__main__":
         request_files = {
             "bot_zip": bot_zip,
         }
+        print(URL)
         response = requests.patch(
             URL, headers=request_headers, data=request_data, files=request_files
         )
