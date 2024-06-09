@@ -31,11 +31,11 @@ def get_bot_description() -> str:
                 bot_name = config[MY_BOT_NAME]
 
     return (
-        f"# {bot_name} <br> "
+        f"# {bot_name} <br />  "
         "This bot is designed to showcase some useful features in "
-        "ares-sc2 and to serve as an example project. <br>"
-        "[Bot Repo](https://github.com/AresSC2/ares-random-example) <br> "
-        "Made with [ares-sc2](https://github.com/AresSC2/ares-sc2) <br> "
+        "ares-sc2 and to serve as an example project. <br >  "
+        "[Bot Repo](https://github.com/AresSC2/ares-random-example) <br/>  "
+        "Made with [ares-sc2](https://github.com/AresSC2/ares-sc2)"
     )
 
 
