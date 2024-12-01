@@ -17,7 +17,7 @@ jobs:
       - name: Install poetry
         run: pipx install poetry
       # set-up python with cache
-      - name: Setup Python
+      - name: Setup Python 3.12
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
