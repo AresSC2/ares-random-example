@@ -25,6 +25,7 @@ from ares.behaviors.combat.individual import (
     UseAbility,
 )
 from ares.behaviors.macro import AutoSupply, Mining, SpawnController
+from ares.behaviors.macro.macro_plan import MacroPlan
 from ares.consts import ALL_STRUCTURES, WORKER_TYPES, UnitRole, UnitTreeQueryType
 from cython_extensions import cy_closest_to, cy_in_attack_range, cy_pick_enemy_target
 from sc2.data import Race
@@ -88,8 +89,10 @@ class MyBot(AresBot):
     @property
     def attack_target(self) -> Point2:
         if self.enemy_structures:
-            # using a faster cython alternative here, see docs for all available functions
-            # https://aressc2.github.io/ares-sc2/api_reference/cython_extensions/index.html
+            # using a faster cython alternative here from cython extensions library
+            # this is installed for ares users by default
+            # see docs here for all available functions
+            # https://aressc2.github.io/cython-extensions-sc2/
             return cy_closest_to(self.start_location, self.enemy_structures).position
         # not seen anything in early game, just head to enemy spawn
         elif self.time < 240.0:
@@ -120,6 +123,7 @@ class MyBot(AresBot):
 
         self._macro()
 
+        # using role system to separate our fighting forces from other units
         # https://aressc2.github.io/ares-sc2/api_reference/manager_mediator.html#ares.managers.manager_mediator.ManagerMediator.get_units_from_role
         # see `self.on_unit_created` where we originally assigned units ATTACKING role
         forces: Units = self.mediator.get_units_from_role(role=UnitRole.ATTACKING)
@@ -148,29 +152,21 @@ class MyBot(AresBot):
             self.mediator.assign_role(tag=unit.tag, role=UnitRole.ATTACKING)
 
     def _macro(self) -> None:
-        # MINE
         # ares-sc2 Mining behavior
         # https://aressc2.github.io/ares-sc2/api_reference/behaviors/macro_behaviors.html#ares.behaviors.macro.mining.Mining
         self.register_behavior(Mining())
 
-        # MAKE SUPPLY
-        # ares-sc2 AutoSupply
-        # https://aressc2.github.io/ares-sc2/api_reference/behaviors/macro_behaviors.html#ares.behaviors.macro.auto_supply.AutoSupply
+        # set up a simple macro plan, this could be extended if making a full macro bot, see docs here:
+        # https://aressc2.github.io/ares-sc2/tutorials/managing_production.html#setting-up-a-macroplan
+        macro_plan: MacroPlan = MacroPlan()
         if self.build_order_runner.build_completed:
-            self.register_behavior(AutoSupply(base_location=self.start_location))
+            macro_plan.add(AutoSupply(base_location=self.start_location))
+        macro_plan.add(SpawnController(ARMY_COMPS[self.race]))
+        self.register_behavior(macro_plan)
 
-        # BUILD ARMY
-        # ares-sc2 SpawnController
-        # https://aressc2.github.io/ares-sc2/api_reference/behaviors/macro_behaviors.html#ares.behaviors.macro.spawn_controller.SpawnController
-        self.register_behavior(SpawnController(ARMY_COMPS[self.race]))
-
-        # see also `ProductionController` for ongoing generic production, not needed here
-        # https://aressc2.github.io/ares-sc2/api_reference/behaviors/macro_behaviors.html#ares.behaviors.macro.spawn_controller.ProductionController
-
+        # do some race specific things (chrono/mule/inject etc)
         self._protoss_specific_macro()
-
         self._terran_specific_macro()
-
         self._zerg_specific_macro()
 
     def _micro(self, forces: Units) -> None:
@@ -206,11 +202,16 @@ class MyBot(AresBot):
             then all other behaviors will be ignored for this step.
             """
 
+            # set up a new CombatManeuver for our unit, we register this a bit later using:
+            # self.register_behavior(attacking_maneuver)
+            # but we add behaviors first
             attacking_maneuver: CombatManeuver = CombatManeuver()
+
             # we already calculated close enemies, use unit tag to retrieve them
             all_close: Units = near_enemy[unit.tag].filter(
                 lambda u: not u.is_memory and u.type_id not in COMMON_UNIT_IGNORE_TYPES
             )
+            # separate enemy units from enemy structures
             only_enemy_units: Units = all_close.filter(
                 lambda u: u.type_id not in ALL_STRUCTURES
             )
@@ -222,7 +223,7 @@ class MyBot(AresBot):
 
             # enemy around, engagement control
             if all_close:
-                # ares's cython version of `cy_in_attack_range` is approximately 4
+                # cython version of `cy_in_attack_range` is approximately 4
                 # times speedup vs burnysc2's `all_close.in_attack_range_of`
 
                 # idea here is to attack anything in range if weapon is ready
