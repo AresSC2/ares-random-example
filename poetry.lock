@@ -138,7 +138,7 @@ typing-extensions = {version = ">=4.2", markers = "python_version < \"3.13\""}
 
 [[package]]
 name = "ares-sc2"
-version = "2.46.4"
+version = "2.47.2"
 description = ""
 optional = false
 python-versions = ">=3.10, <3.13"
@@ -247,7 +247,7 @@ scipy = {version = ">=1.7.1", markers = "python_full_version < \"3.13\""}
 type = "git"
 url = "https://github.com/august-k/python-sc2"
 reference = "develop"
-resolved_reference = "80c052691949515a3a6fe20a41873b05875f437f"
+resolved_reference = "9b3669fc632ad5d21fab3d3c5294f130fcabfe90"
 
 [[package]]
 name = "certifi"
