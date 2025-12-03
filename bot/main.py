@@ -267,12 +267,12 @@ class MyBot(AresBot):
         """
         burrow_maneuver: CombatManeuver = CombatManeuver()
         if roach.is_burrowed and roach.health_percentage > self.UNBURROW_AT_HEALTH_PERC:
-            burrow_maneuver.add(UseAbility(AbilityId.BURROWUP, roach, None))
+            burrow_maneuver.add(UseAbility(AbilityId.BURROWUP_ROACH, roach, None))
         elif (
             not roach.is_burrowed
             and roach.health_percentage <= self.BURROW_AT_HEALTH_PERC
         ):
-            burrow_maneuver.add(UseAbility(AbilityId.BURROWDOWN, roach, None))
+            burrow_maneuver.add(UseAbility(AbilityId.BURROWDOWN_ROACH, roach, None))
 
         return burrow_maneuver
 
